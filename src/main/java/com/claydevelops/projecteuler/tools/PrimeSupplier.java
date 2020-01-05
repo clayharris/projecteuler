@@ -3,8 +3,6 @@ package com.claydevelops.projecteuler.tools;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.LongSupplier;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
 public class PrimeSupplier implements LongSupplier {
 
@@ -27,7 +25,8 @@ public class PrimeSupplier implements LongSupplier {
         while(true) {
             candidateIter += 2;
             long candidate = candidateIter;
-            if (primes.stream().noneMatch(prime -> candidate % prime == 0)) {
+            long sqrt = (long) Math.sqrt(candidate);
+            if (primes.stream().takeWhile(prime -> prime <= sqrt).noneMatch(prime -> candidate % prime == 0)) {
                 maxPrime = candidate;
                 primes.add(maxPrime);
                 return maxPrime;
